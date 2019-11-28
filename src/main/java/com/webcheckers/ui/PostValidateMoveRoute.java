@@ -32,10 +32,12 @@ public class PostValidateMoveRoute implements Route {
     public static final Message MAX_ROW_MESSAGE = Message.error("The maximum number of rows you can move is 2");
     // multiple jump
     public static final Message MOVE_ERROR = Message.error("After a jump, you can only jump.");
-    public static final Message DIFFERENT_ERROR = Message.error("After a jump, you can move the previous piece");
+    public static final Message DIFFERENT_ERROR = Message.error("After a jump, you can only move the previous piece");
     public static final Message END_ERROR = Message.error("There is no more jump can be made from this piece.\n" +
                                                             "You have to either submit or backup.");
     public static final Message MULTIPLE_ERROR = Message.error("You cannot jump if you just moved.");
+    public static final Message REPEAT_ERROR = Message.error("You cannot jump jump over the piece you just jumped over.");
+
 
 
     // param name
