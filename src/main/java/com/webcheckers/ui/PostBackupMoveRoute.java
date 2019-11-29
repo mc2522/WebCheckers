@@ -62,9 +62,7 @@ public class PostBackupMoveRoute implements Route {
             Player currentPlayer = playerServices.getPlayer(currentPlayerName);
             Match currentMatch = gameCenter.getMatch(currentPlayer);
 
-            System.out.println(currentMatch.getMoves());
             Move previousMove = currentMatch.popMove();
-            System.out.println(currentMatch.getMoves());
             if (previousMove.getEnd().getRow() == 0) {
                 currentMatch.typeSingle();
             }

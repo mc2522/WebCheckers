@@ -110,7 +110,10 @@ public class GetGameRoute implements Route {
             // only display the help button when it is your turn and the game is not ended
             if (currentMatch.getCurrentPlayer().equals(currentPlayer) &&
                     ! currentMatch.isGameOver() ) {
-                vm.put("PLAYING", true);
+                // double check if the game ended 
+                if (currentMatch.getWinner() == null) {
+                    vm.put("PLAYING", true);
+                }
             }
 
             // check if the help button is click
@@ -160,7 +163,7 @@ public class GetGameRoute implements Route {
                 // remove the player from the ingame list after exiting the game
                 currentPlayer.changeRecentlyInGame(true);
                 // guard so that their records won't be modified more than once in case of mandatory refreshes
-                if (currentPlayer.getRecordsModified() == false) {
+                if (! currentPlayer.getRecordsModified()) {
                     int piecesTaken, piecesLost;
                     if (currentPlayer.equals(currentMatch.getRedPlayer())) {
                         piecesTaken = 12 - currentMatch.getWhitePieces().size();
@@ -191,7 +194,7 @@ public class GetGameRoute implements Route {
                 // remove the player from the ingame list after exiting the game
                 currentPlayer.changeRecentlyInGame(true);
                 // guard so that their records won't be modified more than once in case of mandatory refreshes
-                if (currentPlayer.getRecordsModified() == false) {
+                if (! currentPlayer.getRecordsModified()) {
                     int piecesTaken, piecesLost;
                     if (currentPlayer.equals(currentMatch.getRedPlayer())) {
                         piecesTaken = 12 - currentMatch.getWhitePieces().size();
@@ -221,7 +224,7 @@ public class GetGameRoute implements Route {
                 // remove the player from the ingame list after exiting the game
                 currentPlayer.changeRecentlyInGame(true);
                 // guard so that their records won't be modified more than once in case of mandatory refreshes
-                if (currentPlayer.getRecordsModified() == false) {
+                if (! currentPlayer.getRecordsModified()) {
                     int piecesTaken, piecesLost;
                     if (currentPlayer.equals(currentMatch.getRedPlayer())) {
                         piecesTaken = 12 - currentMatch.getWhitePieces().size();

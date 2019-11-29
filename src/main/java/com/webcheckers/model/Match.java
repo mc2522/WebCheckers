@@ -742,13 +742,17 @@ public class Match {
             Move previousMove = this.popMove();
             Position previousStart = previousMove.getStart();
             Position previousEnd = previousMove.getEnd();
-            System.out.println("push the move back");
             this.pushMove(previousMove);
 
             // you cannot jump if you just moved
             if (previousStart.getRow() - previousEnd.getRow() == 1 ||
                     previousStart.getRow() - previousEnd.getRow() == -1)
                 message = PostValidateMoveRoute.MULTIPLE_ERROR;
+
+            else if (moves.contains(new Move(end, start))) {
+                message = PostValidateMoveRoute.REPEAT_ERROR;
+            }
+
             // you can only make jump from the previous piece
             else if (row != previousEnd.getRow() &&
                     col != previousEnd.getCell())
@@ -798,11 +802,12 @@ public class Match {
             if (row - end.getRow() == 1 ||
                     row - end.getRow() == -1) {
                 // you are not suppose to move if you can jump
-                if (optionToJump(currentBoardView, pieces))
+                if (optionToJump(currentBoardView, pieces)) {
                     message = PostValidateMoveRoute.JUMP_OPTION_ERROR;
-                else if (row - end.getRow() == -1 && ! isKing)
+                }
+                else if (row - end.getRow() == -1 && ! isKing) {
                     message = PostValidateMoveRoute.FORWARD_MOVE_ERROR; // you can only move forward
-
+                }
                 else {
                     int diff = col - end.getCell();
                     if (diff == 1 || diff == -1) {
@@ -819,7 +824,6 @@ public class Match {
                 // dealing with jump
                 if (row - end.getRow() == -2 && currentType != Piece.Type.KING)
                     message = PostValidateMoveRoute.FORWARD_JUMP_ERROR; // normal piece can only jump forward
-
                 else { // can jump forward by two rows
                     int xDiff = col - end.getCell();
                     int yDiff = row - end.getRow();
